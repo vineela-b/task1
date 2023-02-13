@@ -7,9 +7,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: demo workflow job
         run: echo This is a demo start workflow
-    # Test create artificat
+    # Test end-to-end by uploading two artifacts and then downloading them
       - name: Create artifact files
         run: |
           mkdir -p task1/build/dir-1
-          echo "Hello world from file #2" > path/to/dir-1/file1.txt
+          echo "Hello world from file #2" > task1/build/dir-1/file1.txt
       
