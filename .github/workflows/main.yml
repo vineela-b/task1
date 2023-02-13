@@ -1,0 +1,15 @@
+name: build-github-actions-workflow
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+      - uses: actions/checkout@v3
+      - name: demo workflow job
+        run: echo This is a demo start workflow
