@@ -7,12 +7,15 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v3
       
-      - name: Create zip file
-        run: zip -r build.zip .  -x ".git/*" ".github/*"
       - name: Create Release Folder
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: build.zip
+        run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
+      - name: Switch to Release Folder
+        run: |
+          cd release
+          ls -la
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          REPO_OWNER: vineela-b
+
