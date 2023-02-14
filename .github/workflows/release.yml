@@ -4,17 +4,23 @@ on:
     branches:
       - main
 jobs:
+  wait:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait
+        run: sleep 60
   download_artifact:
-    runs-on: ubuntu-latest  
-      
-    steps:    
-      - uses: actions/checkout@v3
-
-      - uses: actions/download-artifact@v3
-        id: download
+    runs-on: ubuntu-latest
+    needs: wait
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download
+        uses: ./
         with:
-          name: 'build-artifact'
+          workflow: main.yml
+          name: build-artifact
           path: src/
-
-      - name: 'Echo download path'
-        run: echo ${{steps.download.outputs.download-path}}
+        
+      - name: Test
+        run: ls
