@@ -7,12 +7,14 @@ jobs:
   download_artifact:
     runs-on: ubuntu-latest  
       
-    steps:
+    steps:    
       - uses: actions/checkout@v3
 
       - uses: actions/download-artifact@v3
+        id: download
         with:
-          name: build-artifact
-          
-      - name: Display structure of downloaded files
-        run: ls -R
+          name: 'build-artifact'
+          path: src/
+
+      - name: 'Echo download path'
+        run: echo ${{steps.download.outputs.download-path}}
