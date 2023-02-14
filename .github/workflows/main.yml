@@ -7,15 +7,11 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v3
       
-      - name: Create Release Folder
-        run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
-      - name: Switch to Release Folder
-        run: |
-          cd release
-          ls -la
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-          REPO_OWNER: vineela-b
-
+      - name: make new directory
+      - run: mkdir -p path/to/artifact
+      - run: echo hello > path/to/artifact/world.txt
+      
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: path/to/artifact/world.txt
